@@ -41,6 +41,7 @@ class MyGame(arcade.Window):
         self.car_left_sprite = arcade.Sprite(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkie.png",scale=0.3)
         self.car_left_sprite.center_x = 650
         self.car_left_sprite.center_y = 220
+        self.car_left_sprite.change_x =-1
         self.car_list.append(self.car_left_sprite)
 
         self.car_left_sprite2 = arcade.Sprite(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkie.png",
@@ -70,6 +71,7 @@ class MyGame(arcade.Window):
 
     def on_update(self, delta_time):
         self.frog_list.update()
+        self.car_list.update()
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
