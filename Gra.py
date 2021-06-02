@@ -74,6 +74,7 @@ class MyGame(arcade.Window):
         self.background=None
         self.frog_list=None
         self.frog_sprite=None
+        self.lives = LIVES
     def setup(self):
         self.background = arcade.load_texture(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\tło.png")
         self.frog_list = arcade.SpriteList()
@@ -91,18 +92,18 @@ class MyGame(arcade.Window):
         self.car_list.append(self.car_left_sprite)
 
         self.car_left_sprite2 = Carleft(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkie.png",scale=0.3)
-        self.car_left_sprite2.center_x = 350
-        self.car_left_sprite2.center_y = 220
+        self.car_left_sprite2.center_x = 250
+        self.car_left_sprite2.center_y = 180
         self.car_list.append(self.car_left_sprite2)
 
         self.car_right_sprite = Carright(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkieprawo.png",scale=0.3)
         self.car_right_sprite.center_x = 30
-        self.car_right_sprite.center_y = 120
+        self.car_right_sprite.center_y = 150
         self.car_list.append(self.car_right_sprite)
 
         self.car_right_sprite2 = Carright(
             r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkieprawo.png", scale=0.3)
-        self.car_right_sprite2.center_x = 400
+        self.car_right_sprite2.center_x = 450
         self.car_right_sprite2.center_y = 120
         self.car_list.append(self.car_right_sprite2)
 
@@ -120,6 +121,8 @@ class MyGame(arcade.Window):
         if arcade.check_for_collision_with_list(self.frog_sprite,self.car_list):
             self.frog_sprite.center_x = 350
             self.frog_sprite.center_y = 50
+            self.lives -=1
+
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
