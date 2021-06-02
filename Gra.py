@@ -33,15 +33,38 @@ class MyGame(arcade.Window):
         self.car_list = arcade.SpriteList()
 
         self.score = 0
-        self.frog_sprite = Frog(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\frog.png")
-        self.frog_sprite.center_x = 50
+        self.frog_sprite = Frog(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\frog.png",scale=0.3)
+        self.frog_sprite.center_x = 350
         self.frog_sprite.center_y = 50
         self.frog_list.append(self.frog_sprite)
+
+        self.car_left_sprite = arcade.Sprite(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkie.png",scale=0.3)
+        self.car_left_sprite.center_x = 650
+        self.car_left_sprite.center_y = 220
+        self.car_list.append(self.car_left_sprite)
+
+        self.car_left_sprite2 = arcade.Sprite(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkie.png",
+                                             scale=0.3)
+        self.car_left_sprite2.center_x = 350
+        self.car_left_sprite2.center_y = 220
+        self.car_list.append(self.car_left_sprite2)
+
+        self.car_right_sprite = arcade.Sprite(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkieprawo.png",scale=0.3)
+        self.car_right_sprite.center_x = 30
+        self.car_right_sprite.center_y = 120
+        self.car_list.append(self.car_right_sprite)
+
+        self.car_right_sprite2 = arcade.Sprite(
+            r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkieprawo.png", scale=0.3)
+        self.car_right_sprite2.center_x = 400
+        self.car_right_sprite2.center_y = 120
+        self.car_list.append(self.car_right_sprite2)
 
     def on_draw(self):
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, Screen_width, Screen_height, self.background)
         self.frog_list.draw()
+        self.car_list.draw()
 
 
 
