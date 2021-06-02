@@ -34,6 +34,9 @@ class Carleft(arcade.Sprite):
         if self.center_x < 0:
             self.center_x = 5
             self.speed *= -1
+        elif self.center_x > SCREEN_WIDTH:
+            self.center_x = SCREEN_WIDTH
+            self.speed *= -1
         self.center_x += self.speed
 
 class Carright(arcade.Sprite):
@@ -45,6 +48,9 @@ class Carright(arcade.Sprite):
         super().update()
         if self.center_x > SCREEN_WIDTH:
             self.center_x = SCREEN_WIDTH
+            self.speed *= -1
+        elif self.center_x < 0:
+            self.center_x = 5
             self.speed *= -1
         self.center_x += self.speed
 
