@@ -6,6 +6,7 @@ SCREEN_TITLE = 'Frogger'
 MOVEMENT_SPEED = 5
 LEFT_LIMIT = 0
 DIFFICULTY = 1
+LIVES = 3
 
 
 class Frog(arcade.Sprite):
@@ -84,8 +85,6 @@ class MyGame(arcade.Window):
         self.frog_sprite.center_y = 50
         self.frog_list.append(self.frog_sprite)
 
-
-
         self.car_left_sprite = Carleft(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkie.png",scale=0.3)
         self.car_left_sprite.center_x = 650
         self.car_left_sprite.center_y = 220
@@ -118,6 +117,9 @@ class MyGame(arcade.Window):
     def on_update(self, delta_time):
         self.frog_list.update()
         self.car_list.update()
+        if arcade.check_for_collision_with_list(self.frog_sprite,self.car_list):
+            self.frog_sprite.center_x = 350
+            self.frog_sprite.center_y = 50
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
