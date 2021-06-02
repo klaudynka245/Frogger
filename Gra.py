@@ -1,9 +1,12 @@
 import arcade
 
-Screen_width=700
-Screen_height=800
-Screen_title='Frogger'
+SCREEN_WIDTH = 700
+SCREEN_HEIGHT = 800
+SCREEN_TITLE = 'Frogger'
 MOVEMENT_SPEED = 5
+LEFT_LIMIT = 0
+DIFFICULTY = 1
+
 
 class Frog(arcade.Sprite):
 
@@ -13,13 +16,37 @@ class Frog(arcade.Sprite):
 
         if self.left < 0:
             self.left = 0
-        elif self.right > Screen_width - 1:
-            self.right = Screen_width - 1
+        elif self.right > SCREEN_WIDTH - 1:
+            self.right = SCREEN_WIDTH - 1
 
         if self.bottom < 0:
             self.bottom = 0
-        elif self.top > Screen_height - 1:
-            self.top = Screen_height - 1
+        elif self.top > SCREEN_HEIGHT - 1:
+            self.top = SCREEN_HEIGHT - 1
+
+class Carleft(arcade.Sprite):
+    def __init__(self,img,scale):
+        super().__init__(img,scale=scale)
+        self.size=0
+        self.speed = -(2 + DIFFICULTY)
+    def update(self):
+        super().update()
+        if self.center_x < 0:
+            self.center_x = 5
+            self.speed *= -1
+        self.center_x += self.speed
+
+class Carright(arcade.Sprite):
+    def __init__(self,img,scale):
+        super().__init__(img,scale=scale)
+        self.size=0
+        self.speed = 2 + DIFFICULTY
+    def update(self):
+        super().update()
+        if self.center_x > SCREEN_WIDTH:
+            self.center_x = SCREEN_WIDTH
+            self.speed *= -1
+        self.center_x += self.speed
 
 class MyGame(arcade.Window):
     def __init__(self,width,height,title):
@@ -38,24 +65,25 @@ class MyGame(arcade.Window):
         self.frog_sprite.center_y = 50
         self.frog_list.append(self.frog_sprite)
 
-        self.car_left_sprite = arcade.Sprite(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkie.png",scale=0.3)
+
+
+        self.car_left_sprite = Carleft(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkie.png",scale=0.3)
         self.car_left_sprite.center_x = 650
         self.car_left_sprite.center_y = 220
-        self.car_left_sprite.change_x =-1
         self.car_list.append(self.car_left_sprite)
 
-        self.car_left_sprite2 = arcade.Sprite(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkie.png",
+        self.car_left_sprite2 = Carleft(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkie.png",
                                              scale=0.3)
         self.car_left_sprite2.center_x = 350
         self.car_left_sprite2.center_y = 220
         self.car_list.append(self.car_left_sprite2)
 
-        self.car_right_sprite = arcade.Sprite(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkieprawo.png",scale=0.3)
+        self.car_right_sprite = Carright(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkieprawo.png",scale=0.3)
         self.car_right_sprite.center_x = 30
         self.car_right_sprite.center_y = 120
         self.car_list.append(self.car_right_sprite)
 
-        self.car_right_sprite2 = arcade.Sprite(
+        self.car_right_sprite2 = Carright(
             r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkieprawo.png", scale=0.3)
         self.car_right_sprite2.center_x = 400
         self.car_right_sprite2.center_y = 120
@@ -63,7 +91,7 @@ class MyGame(arcade.Window):
 
     def on_draw(self):
         arcade.start_render()
-        arcade.draw_lrwh_rectangle_textured(0, 0, Screen_width, Screen_height, self.background)
+        arcade.draw_lrwh_rectangle_textured(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
         self.frog_list.draw()
         self.car_list.draw()
 
@@ -91,7 +119,7 @@ class MyGame(arcade.Window):
             self.frog_sprite.change_x = 0
 
 def main():
-    window=MyGame(Screen_width,Screen_height,Screen_title)
+    window=MyGame(SCREEN_WIDTH,SCREEN_HEIGHT,SCREEN_TITLE)
     window.setup()
     arcade.run()
 main()
