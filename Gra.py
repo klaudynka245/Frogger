@@ -34,9 +34,15 @@ class Carleft(arcade.Sprite):
         if self.center_x < 0:
             self.center_x = 5
             self.speed *= -1
+            self.append_texture(
+                arcade.load_texture(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkieprawo.png"))
+            self.set_texture(1)
         elif self.center_x > SCREEN_WIDTH:
             self.center_x = SCREEN_WIDTH
             self.speed *= -1
+            self.append_texture(
+                arcade.load_texture(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkie.png"))
+            self.set_texture(2)
         self.center_x += self.speed
 
 class Carright(arcade.Sprite):
