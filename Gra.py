@@ -77,6 +77,8 @@ class MyGame(arcade.Window):
         self.lives = LIVES
     def setup(self):
         self.background = arcade.load_texture(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\tło.png")
+        self.crash_sound = arcade.load_sound(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\dźwięki\PiskOpon.mp3")
+
         self.frog_list = arcade.SpriteList()
         self.car_list = arcade.SpriteList()
 
@@ -119,6 +121,7 @@ class MyGame(arcade.Window):
         self.frog_list.update()
         self.car_list.update()
         if arcade.check_for_collision_with_list(self.frog_sprite,self.car_list):
+            arcade.play_sound(self.crash_sound)
             self.frog_sprite.center_x = 350
             self.frog_sprite.center_y = 50
             self.lives -=1
