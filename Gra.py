@@ -72,7 +72,7 @@ class Lily(arcade.Sprite):
     def __init__(self,img,scale):
         super().__init__(img,scale=scale)
         self.size=0
-        self.speed = 1 + DIFFICULTY
+        self.speed = 0.5 + DIFFICULTY
     def update(self):
         super().update()
         if self.center_x > 720:
@@ -141,6 +141,11 @@ class MyGame(arcade.Window):
         self.lily4.center_y = 500
         self.lilies_list.append(self.lily4)
 
+        self.lily5 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily5.center_x = 450
+        self.lily5.center_y = 500
+        self.lilies_list.append(self.lily5)
+
     def on_draw(self):
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
@@ -161,8 +166,7 @@ class MyGame(arcade.Window):
             self.lives -=1
         for lily in self.lilies_list:
             if arcade.check_for_collision(self.frog_sprite,lily):
-                self.frog_sprite.center_x = lily.center_x
-
+                self.frog_sprite.center_x += lily.speed
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
