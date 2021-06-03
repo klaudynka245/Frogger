@@ -68,6 +68,17 @@ class Carright(arcade.Sprite):
 
         self.center_x += self.speed
 
+class Lily(arcade.Sprite):
+    def __init__(self,img,scale):
+        super().__init__(img,scale=scale)
+        self.size=0
+        self.speed = 1 + DIFFICULTY
+    def update(self):
+        super().update()
+        if self.center_x > 720:
+            self.center_x = -10
+        self.center_x += self.speed
+
 class MyGame(arcade.Window):
     def __init__(self,width,height,title):
         super().__init__(width,height,title)
@@ -81,9 +92,10 @@ class MyGame(arcade.Window):
 
         self.frog_list = arcade.SpriteList()
         self.car_list = arcade.SpriteList()
+        self.lilies_list = arcade.SpriteList()
 
         self.score = 0
-        self.frog_sprite = Frog(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\frog.png",scale=0.3)
+        self.frog_sprite = Frog(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\frog.png",scale=0.2)
         self.frog_sprite.center_x = 350
         self.frog_sprite.center_y = 50
         self.frog_list.append(self.frog_sprite)
@@ -109,22 +121,47 @@ class MyGame(arcade.Window):
         self.car_right_sprite2.center_y = 120
         self.car_list.append(self.car_right_sprite2)
 
+        self.lily1 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png",scale=0.15)
+        self.lily1.center_x = 600
+        self.lily1.center_y = 600
+        self.lilies_list.append(self.lily1)
+
+        self.lily2 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily2.center_x = 200
+        self.lily2.center_y = 600
+        self.lilies_list.append(self.lily2)
+
+        self.lily3 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily3.center_x = 600
+        self.lily3.center_y = 500
+        self.lilies_list.append(self.lily3)
+
+        self.lily4 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily4.center_x = 400
+        self.lily4.center_y = 500
+        self.lilies_list.append(self.lily4)
+
     def on_draw(self):
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
-        self.frog_list.draw()
         self.car_list.draw()
+        self.lilies_list.draw()
+        self.frog_list.draw()
 
 
 
     def on_update(self, delta_time):
         self.frog_list.update()
         self.car_list.update()
+        self.lilies_list.update()
         if arcade.check_for_collision_with_list(self.frog_sprite,self.car_list):
             arcade.play_sound(self.crash_sound)
             self.frog_sprite.center_x = 350
             self.frog_sprite.center_y = 50
             self.lives -=1
+        for lily in self.lilies_list:
+            if arcade.check_for_collision(self.frog_sprite,lily):
+                self.frog_sprite.center_x = lily.center_x
 
 
     def on_key_press(self, key, modifiers):
