@@ -146,6 +146,66 @@ class MyGame(arcade.Window):
         self.lily5.center_y = 500
         self.lilies_list.append(self.lily5)
 
+        self.lily6 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily6.center_x = 100
+        self.lily6.center_y = 500
+        self.lilies_list.append(self.lily6)
+
+        self.lily7 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily7.center_x = 450
+        self.lily7.center_y = 600
+        self.lilies_list.append(self.lily7)
+
+        self.lily8 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily8.center_x = 550
+        self.lily8.center_y = 600
+        self.lilies_list.append(self.lily8)
+
+        self.lily9 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily9.center_x = 150
+        self.lily9.center_y = 600
+        self.lilies_list.append(self.lily9)
+
+        self.lily10 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily10.center_x = 200
+        self.lily10.center_y = 600
+        self.lilies_list.append(self.lily10)
+
+        self.lily11 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily11.center_x = 250
+        self.lily11.center_y = 400
+        self.lilies_list.append(self.lily11)
+
+        self.lily12 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily12.center_x = 300
+        self.lily12.center_y = 400
+        self.lilies_list.append(self.lily12)
+
+        self.lily13 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily13.center_x = 600
+        self.lily13.center_y = 400
+        self.lilies_list.append(self.lily13)
+
+        self.lily14 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily14.center_x = 650
+        self.lily14.center_y = 400
+        self.lilies_list.append(self.lily14)
+
+        self.lily15 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily15.center_x = 150
+        self.lily15.center_y = 500
+        self.lilies_list.append(self.lily15)
+
+        self.lily16 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily16.center_x = 50
+        self.lily16.center_y = 500
+        self.lilies_list.append(self.lily16)
+
+        self.lily17 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily17.center_x = 350
+        self.lily17.center_y = 400
+        self.lilies_list.append(self.lily17)
+
     def on_draw(self):
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
