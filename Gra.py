@@ -72,7 +72,7 @@ class Lily(arcade.Sprite):
     def __init__(self,img,scale,hit_box_algorithm: str = "Detailed"):
         super().__init__(img,scale=scale)
         self.size=0
-        self.speed = 0.5 + DIFFICULTY
+        self.speed = 0.1 + DIFFICULTY
     def update(self):
         super().update()
         if self.center_x > 720:
@@ -83,11 +83,11 @@ class Log(arcade.Sprite):
     def __init__(self,img,scale, hit_box_algorithm: str = "Detailed"):
         super().__init__(img,scale=scale)
         self.size=0
-        self.speed = -(0.5 + DIFFICULTY)
+        self.speed = -(0.2 + DIFFICULTY)
     def update(self):
         super().update()
-        if self.center_x < -50:
-            self.center_x = 750
+        if self.center_x < -70:
+            self.center_x = 770
         self.center_x += self.speed
 
 
@@ -165,12 +165,12 @@ class MyGame(arcade.Window):
         self.lilies_list.append(self.lily6)
 
         self.lily7 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
-        self.lily7.center_x = 450
+        self.lily7.center_x = 50
         self.lily7.center_y = 435
         self.lilies_list.append(self.lily7)
 
         self.lily8 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
-        self.lily8.center_x = 550
+        self.lily8.center_x = 500
         self.lily8.center_y = 435
         self.lilies_list.append(self.lily8)
 
@@ -185,7 +185,7 @@ class MyGame(arcade.Window):
         self.lilies_list.append(self.lily10)
 
         self.lily11 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
-        self.lily11.center_x = 250
+        self.lily11.center_x = 600
         self.lily11.center_y = 435
         self.lilies_list.append(self.lily11)
 
@@ -229,13 +229,63 @@ class MyGame(arcade.Window):
         self.lily19.center_y = 475
         self.lilies_list.append(self.lily19)
 
+        self.lily20 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily20.center_x = 500
+        self.lily20.center_y = 550
+        self.lilies_list.append(self.lily20)
+
+        self.lily21 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily21.center_x = 300
+        self.lily21.center_y = 550
+        self.lilies_list.append(self.lily21)
+
+        self.lily22 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily22.center_x = 100
+        self.lily22.center_y = 550
+        self.lilies_list.append(self.lily22)
+
+        self.lily23 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily23.center_x = 150
+        self.lily23.center_y = 550
+        self.lilies_list.append(self.lily23)
+
+        self.lily24 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily24.center_x = 250
+        self.lily24.center_y = 550
+        self.lilies_list.append(self.lily24)
+
+        self.lily25 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily25.center_x = 650
+        self.lily25.center_y = 550
+        self.lilies_list.append(self.lily25)
+
+        self.lily26 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily26.center_x = 650
+        self.lily26.center_y = 625
+        self.lilies_list.append(self.lily26)
+
+        self.lily27 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily27.center_x = 150
+        self.lily27.center_y = 625
+        self.lilies_list.append(self.lily27)
+
+        self.lily28 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily28.center_x = 400
+        self.lily28.center_y = 625
+        self.lilies_list.append(self.lily28)
+
+        self.lily29 = Lily(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lisc.png", scale=0.15)
+        self.lily29.center_x = 350
+        self.lily29.center_y = 625
+        self.lilies_list.append(self.lily29)
+
         self.log = Log(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\kłoda2.png", scale=0.2)
-        self.log.center_x = 380
+        self.log.center_x = 280
         self.log.center_y = 365
         self.logs_list.append(self.log)
 
         self.log2 = Log(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\kłoda2.png", scale=0.2)
-        self.log2.center_x = 545
+        self.log2.center_x = 645
         self.log2.center_y = 365
         self.logs_list.append(self.log2)
 
@@ -268,6 +318,36 @@ class MyGame(arcade.Window):
         self.log8.center_x = 580
         self.log8.center_y = 555
         self.logs_list.append(self.log8)
+
+        self.log9 = Log(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\kłoda2.png", scale=0.2)
+        self.log9.center_x = 580
+        self.log9.center_y = 630
+        self.logs_list.append(self.log9)
+
+        self.log10 = Log(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\kłoda2.png", scale=0.2)
+        self.log10.center_x = 420
+        self.log10.center_y = 630
+        self.logs_list.append(self.log10)
+
+        self.log11 = Log(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\kłoda2.png", scale=0.2)
+        self.log11.center_x = 100
+        self.log11.center_y = 630
+        self.logs_list.append(self.log11)
+
+        self.log12 = Log(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\kłoda2.png", scale=0.2)
+        self.log12.center_x = 350
+        self.log12.center_y = 703
+        self.logs_list.append(self.log12)
+
+        self.log13 = Log(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\kłoda2.png", scale=0.2)
+        self.log13.center_x = 600
+        self.log13.center_y = 703
+        self.logs_list.append(self.log13)
+
+        self.log14 = Log(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\kłoda2.png", scale=0.2)
+        self.log14.center_x = 50
+        self.log14.center_y = 703
+        self.logs_list.append(self.log14)
 
 
     def on_draw(self):
