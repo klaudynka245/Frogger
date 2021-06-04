@@ -101,6 +101,9 @@ class MyGame(arcade.Window):
     def setup(self):
         self.background = arcade.load_texture(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\tło.png")
         self.crash_sound = arcade.load_sound(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\dźwięki\PiskOpon.mp3")
+        self.gameover_sound = arcade.load_sound(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\dźwięki\GameOver.mp3")
+        self.win_sound = arcade.load_sound(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\dźwięki\Wygrana.mp3")
+        self.water_sound = arcade.load_sound(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\dźwięki\PluskWody.mp3")
 
         self.frog_list = arcade.SpriteList()
         self.car_list = arcade.SpriteList()
@@ -375,6 +378,15 @@ class MyGame(arcade.Window):
         for log in self.logs_list:
             if arcade.check_for_collision(self.frog_sprite,log):
                 self.frog_sprite.center_x += log.speed
+
+        if self.frog_sprite.center_y > 300:
+            if not arcade.check_for_collision_with_list(self.frog_sprite,self.lilies_list):
+                if not arcade.check_for_collision_with_list(self.frog_sprite,self.logs_list):
+                    arcade.play_sound(self.water_sound)
+                    self.lives -=1
+                    self.frog_sprite.center_y = 50
+                    self.frog_sprite.center_x = 350
+
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
