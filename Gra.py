@@ -1,6 +1,5 @@
 import arcade
 import arcade.gui
-from arcade.gui import UIManager
 
 
 SCREEN_WIDTH = 700
@@ -196,6 +195,7 @@ class GameView(arcade.View):
         self.frog_list=None
         self.frog_sprite=None
         self.lives = LIVES
+        self.score = 0
     def setup(self):
         self.window.set_mouse_visible(False)
         self.background = arcade.load_texture(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\tło.png")
@@ -484,6 +484,8 @@ class GameView(arcade.View):
         self.logs_list.draw()
         self.flowers_list.draw()
         self.frog_list.draw()
+        score = f"Score: {self.score}"
+        arcade.draw_text(score, 20,760, arcade.csscolor.WHITE, 22)
 
 
     def on_update(self, delta_time):
@@ -510,6 +512,11 @@ class GameView(arcade.View):
                     self.lives -=1
                     self.frog_sprite.center_y = 50
                     self.frog_sprite.center_x = 350
+
+        if self.frog_sprite.center_x >= 700 or self.frog_sprite.center_x <= 0:
+            self.lives -=1
+            self.frog_sprite.center_x = 350
+            self.frog_sprite.center_y = 50
 
         for flower in self.flowers_list:
             if arcade.check_for_collision(self.frog_sprite,flower):
