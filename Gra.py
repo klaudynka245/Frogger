@@ -94,15 +94,43 @@ class Flower(arcade.Sprite):
     def __init__(self,img,scale):
         super().__init__(img,scale=scale)
 
+class InstructionView(arcade.View):
+    def on_show_view(self):
+        arcade.set_background_color(arcade.csscolor.DARK_GREEN)
+        arcade.set_viewport(0,SCREEN_WIDTH-1,0,SCREEN_HEIGHT-1)
+    def on_draw(self):
+        arcade.start_render()
+        arcade.draw_text("Instruction Screen", SCREEN_WIDTH/2, SCREEN_HEIGHT/2,
+                         arcade.color.WHITE, font_size=50, anchor_x='center')
+    def on_mouse_press(self, x, y, button, modifiers):
+        game_view = GameView()
+        game_view.setup()
+        self.window.show_view(game_view)
 
-class MyGame(arcade.Window):
-    def __init__(self,width,height,title):
-        super().__init__(width,height,title)
+class GameOverView(arcade.View):
+
+    def __init__(self):
+        super().__init__()
+        self.texture = arcade.load_texture(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\gameover.jpg")
+        arcade.set_viewport(0,SCREEN_WIDTH-1,0,SCREEN_HEIGHT-1)
+    def on_draw(self):
+        arcade.start_render()
+        self.texture.draw_sized(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,SCREEN_WIDTH,SCREEN_HEIGHT)
+    def on_mouse_press(self, x, y, button, modifiers):
+        game_view = GameView()
+        game_view.setup()
+        self.window.show_view(game_view)
+
+
+class GameView(arcade.View):
+    def __init__(self):
+        super().__init__()
         self.background=None
         self.frog_list=None
         self.frog_sprite=None
         self.lives = LIVES
     def setup(self):
+        self.window.set_mouse_visible(False)
         self.background = arcade.load_texture(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\tło.png")
         self.crash_sound = arcade.load_sound(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\dźwięki\PiskOpon.mp3")
         self.gameover_sound = arcade.load_sound(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\dźwięki\GameOver.mp3")
@@ -117,7 +145,7 @@ class MyGame(arcade.Window):
         self.logs_list = arcade.SpriteList()
 
         self.score = 0
-        self.frog_sprite = Frog(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\frog.png",scale=0.18)
+        self.frog_sprite = Frog(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\frog.png",scale=0.16)
         self.frog_sprite.center_x = 350
         self.frog_sprite.center_y = 50
         self.frog_list.append(self.frog_sprite)
@@ -358,22 +386,22 @@ class MyGame(arcade.Window):
         self.log14.center_y = 705
         self.logs_list.append(self.log14)
 
-        self.flower = Flower(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lils.png", scale=0.09)
+        self.flower = Flower(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lils.png", scale=0.08)
         self.flower.center_x = 120
         self.flower.center_y = 708
         self.flowers_list.append(self.flower)
 
-        self.flower2 = Flower(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lils.png", scale=0.09)
+        self.flower2 = Flower(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lils.png", scale=0.08)
         self.flower2.center_x = 263
         self.flower2.center_y = 708
         self.flowers_list.append(self.flower2)
 
-        self.flower3 = Flower(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lils.png", scale=0.09)
+        self.flower3 = Flower(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lils.png", scale=0.08)
         self.flower3.center_x = 405
         self.flower3.center_y = 708
         self.flowers_list.append(self.flower3)
 
-        self.flower4 = Flower(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lils.png", scale=0.09)
+        self.flower4 = Flower(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lils.png", scale=0.08)
         self.flower4.center_x = 567
         self.flower4.center_y = 708
         self.flowers_list.append(self.flower4)
@@ -424,6 +452,10 @@ class MyGame(arcade.Window):
                 self.frog_sprite.center_x = 350
                 self.frog_sprite.center_y = 50
 
+        if self.lives == 0:
+            view = GameOverView()
+            self.window.show_view(view)
+
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
@@ -443,7 +475,9 @@ class MyGame(arcade.Window):
             self.frog_sprite.change_x = 0
 
 def main():
-    window=MyGame(SCREEN_WIDTH,SCREEN_HEIGHT,SCREEN_TITLE)
-    window.setup()
+    window=arcade.Window(SCREEN_WIDTH,SCREEN_HEIGHT,SCREEN_TITLE)
+    start_view = GameView()
+    window.show_view(start_view)
+    start_view.setup()
     arcade.run()
 main()
