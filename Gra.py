@@ -26,8 +26,8 @@ class Frog(arcade.Sprite):
             self.top = SCREEN_HEIGHT - 1
 
 class Carleft(arcade.Sprite):
-    def __init__(self,img,scale,hit_box_algorithm: str = "Detailed"):
-        super().__init__(img,scale=scale)
+    def __init__(self,img,scale):
+        super().__init__(img,scale=scale,hit_box_algorithm= "Detailed")
         self.size=0
         self.speed = -(2 + DIFFICULTY)
     def update(self):
@@ -47,8 +47,8 @@ class Carleft(arcade.Sprite):
         self.center_x += self.speed
 
 class Carright(arcade.Sprite):
-    def __init__(self,img,scale,hit_box_algorithm: str = "Detailed"):
-        super().__init__(img,scale=scale)
+    def __init__(self,img,scale):
+        super().__init__(img,scale=scale,hit_box_algorithm= "Detailed")
         self.size=0
         self.speed = 2 + DIFFICULTY
     def update(self):
@@ -69,8 +69,8 @@ class Carright(arcade.Sprite):
         self.center_x += self.speed
 
 class Lily(arcade.Sprite):
-    def __init__(self,img,scale,hit_box_algorithm: str = "Detailed"):
-        super().__init__(img,scale=scale)
+    def __init__(self,img,scale):
+        super().__init__(img,scale=scale,hit_box_algorithm= "Detailed")
         self.size=0
         self.speed = 0.1 + DIFFICULTY
     def update(self):
@@ -80,8 +80,8 @@ class Lily(arcade.Sprite):
         self.center_x += self.speed
 
 class Log(arcade.Sprite):
-    def __init__(self,img,scale, hit_box_algorithm: str = "Detailed"):
-        super().__init__(img,scale=scale)
+    def __init__(self,img,scale):
+        super().__init__(img,scale=scale,hit_box_algorithm= "Detailed")
         self.size=0
         self.speed = -(0.2 + DIFFICULTY)
     def update(self):
@@ -89,6 +89,10 @@ class Log(arcade.Sprite):
         if self.center_x < -70:
             self.center_x = 770
         self.center_x += self.speed
+
+class Flower(arcade.Sprite):
+    def __init__(self,img,scale):
+        super().__init__(img,scale=scale)
 
 
 class MyGame(arcade.Window):
@@ -104,10 +108,12 @@ class MyGame(arcade.Window):
         self.gameover_sound = arcade.load_sound(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\dźwięki\GameOver.mp3")
         self.win_sound = arcade.load_sound(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\dźwięki\Wygrana.mp3")
         self.water_sound = arcade.load_sound(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\dźwięki\PluskWody.mp3")
+        self.bell_sound = arcade.load_sound(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\dźwięki\Bell.mp3")
 
         self.frog_list = arcade.SpriteList()
         self.car_list = arcade.SpriteList()
         self.lilies_list = arcade.SpriteList()
+        self.flowers_list = arcade.SpriteList()
         self.logs_list = arcade.SpriteList()
 
         self.score = 0
@@ -339,18 +345,40 @@ class MyGame(arcade.Window):
 
         self.log12 = Log(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\kłoda2.png", scale=0.2)
         self.log12.center_x = 350
-        self.log12.center_y = 703
+        self.log12.center_y = 705
         self.logs_list.append(self.log12)
 
         self.log13 = Log(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\kłoda2.png", scale=0.2)
         self.log13.center_x = 600
-        self.log13.center_y = 703
+        self.log13.center_y = 705
         self.logs_list.append(self.log13)
 
         self.log14 = Log(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\kłoda2.png", scale=0.2)
         self.log14.center_x = 50
-        self.log14.center_y = 703
+        self.log14.center_y = 705
         self.logs_list.append(self.log14)
+
+        self.flower = Flower(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lils.png", scale=0.09)
+        self.flower.center_x = 120
+        self.flower.center_y = 708
+        self.flowers_list.append(self.flower)
+
+        self.flower2 = Flower(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lils.png", scale=0.09)
+        self.flower2.center_x = 263
+        self.flower2.center_y = 708
+        self.flowers_list.append(self.flower2)
+
+        self.flower3 = Flower(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lils.png", scale=0.09)
+        self.flower3.center_x = 405
+        self.flower3.center_y = 708
+        self.flowers_list.append(self.flower3)
+
+        self.flower4 = Flower(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lils.png", scale=0.09)
+        self.flower4.center_x = 567
+        self.flower4.center_y = 708
+        self.flowers_list.append(self.flower4)
+
+
 
 
     def on_draw(self):
@@ -359,6 +387,7 @@ class MyGame(arcade.Window):
         self.car_list.draw()
         self.lilies_list.draw()
         self.logs_list.draw()
+        self.flowers_list.draw()
         self.frog_list.draw()
 
 
@@ -386,6 +415,14 @@ class MyGame(arcade.Window):
                     self.lives -=1
                     self.frog_sprite.center_y = 50
                     self.frog_sprite.center_x = 350
+
+        for flower in self.flowers_list:
+            if arcade.check_for_collision(self.frog_sprite,flower):
+                flower.append_texture(arcade.load_texture(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lily.png"))
+                flower.set_texture(1)
+                arcade.play_sound(self.bell_sound)
+                self.frog_sprite.center_x = 350
+                self.frog_sprite.center_y = 50
 
 
     def on_key_press(self, key, modifiers):
