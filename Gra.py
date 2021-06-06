@@ -1012,8 +1012,8 @@ class HardGameView(arcade.View):
 
 def main():
     window = arcade.Window(SCREEN_WIDTH,SCREEN_HEIGHT,SCREEN_TITLE)
-    view = HardGameView()
-    view.setup()
+    view = MenuView()
+    #view.setup()
     window.show_view(view)
     arcade.run()
 main()
