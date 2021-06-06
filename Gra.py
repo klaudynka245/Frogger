@@ -557,7 +557,7 @@ class GameView(arcade.View):
                 self.time += 10
         if self.flowers == 4:
             arcade.play_sound(self.win_sound)
-            view = WinView()
+            view = WinView(self)
             self.window.show_view(view)
 
         if self.lives == 0:
