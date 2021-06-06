@@ -99,7 +99,7 @@ class Torpedo(arcade.Sprite):
     def __init__(self,img,scale):
         super().__init__(img,scale=scale,hit_box_algorithm= "Detailed")
         self.size=0
-        self.speed = 0.1 + DIFFICULTY/1.2
+        self.speed = 0.1 + DIFFICULTY/1.1
     def follow(self,player):
         if self.center_y < player.center_y:
             self.center_y += min(self.speed, player.center_y - self.center_y)
@@ -983,6 +983,8 @@ class HardGameView(arcade.View):
             self.lives -=1
             self.frog_sprite.center_x = 350
             self.frog_sprite.center_y = 50
+            self.torpedo.center_x = 350
+            self.torpedo.center_y = -100
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
