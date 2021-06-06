@@ -9,47 +9,6 @@ MOVEMENT_SPEED = 5
 DIFFICULTY = 1
 LIVES = 3
 
-
-#class GameButton(arcade.gui.UIFlatButton):
-#    def on_click(self):
-#        game_view = GameView()
-#        game_view.setup()
-#        MyGame().window.show_view(game_view)
-#        arcade.run()
-
-#class InstructionButton(arcade.gui.UIFlatButton):
-#    def on_click(self):
-#        insview = InstructionView()
-#        MyGame().show_view(insview)
-#        arcade.run()
-
-#class ExitButton(arcade.gui.UIFlatButton):
-#    def on_click(self):
-#        Menu.close()
-
-#class MyView(arcade.View):
-#    def __init__(self):
-#        super().__init__()
-#        self.ui_manager = UIManager()
-#    def on_draw(self):
-#        arcade.start_render()
-#    def on_show_view(self):
-#        self.setup()
-#        arcade.set_background_color(arcade.color.BLACK)
-#    def on_hide_view(self):
-#        self.ui_manager.unregister_handlers()
-#    def setup(self):
-#        self.ui_manager.purge_ui_elements()
-#        y_slot = self.window.height // 4
-#        left_column_x = self.window.width // 4
-#        right_column_x = 3 * self.window.width // 4
-
-#        button = GameButton('Start Game', center_x=120, center_y= 300, width = 250)
-#        self.ui_manager.add_ui_element(button)
-
-#        button = InstructionButton('Instruction',center_x=120, center_y=100)
-#        self.ui_manager.add_ui_element(button)
-
 class Frog(arcade.Sprite):
 
     def update(self):
@@ -140,15 +99,15 @@ class MenuView(arcade.View):
         arcade.set_background_color(arcade.color.BLACK)
     def on_draw(self):
         arcade.start_render()
-        arcade.draw_text('Menu', SCREEN_WIDTH/2, SCREEN_HEIGHT/2,
-                         arcade.color.WHITE, font_size=50, anchor_x='center')
-        arcade.draw_text('Click g to start the game', SCREEN_WIDTH/2, SCREEN_HEIGHT/2-75,
+        logo = arcade.load_texture(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\logo.png")
+        arcade.draw_lrwh_rectangle_textured(-45,250,800,600,logo)
+        arcade.draw_text('Click g to start the game', SCREEN_WIDTH/2, SCREEN_HEIGHT/2,
                          arcade.color.WHITE, font_size=20, anchor_x="center")
-        arcade.draw_text('Click i for the instruction', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 125,
+        arcade.draw_text('Click i for the instruction', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 50,
                          arcade.color.WHITE, font_size=20, anchor_x="center")
-        arcade.draw_text('Click l to see the leaderboard', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 175,
+        arcade.draw_text('Click l to see the leaderboard', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 100,
                          arcade.color.WHITE, font_size=20, anchor_x="center")
-        arcade.draw_text('Click esc to exit', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 225,
+        arcade.draw_text('Click esc to exit', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 150,
                          arcade.color.WHITE, font_size=20, anchor_x="center")
     def on_key_press(self, key, modifiers):
         if key == arcade.key.G:
@@ -173,19 +132,73 @@ class InstructionView(arcade.View):
             menu_view = MenuView()
             self.window.show_view(menu_view)
 
+class PauseView(arcade.View):
+    def __init__(self,gameview):
+        super().__init__()
+        self.game_view = gameview
+    def on_show_view(self):
+        arcade.set_background_color(arcade.color.COOL_GREY)
+    def on_draw(self):
+        arcade.start_render()
+        arcade.draw_text('PAUSED',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.BLACK,
+                         font_size=50, anchor_x='center')
+        arcade.draw_text('Press r to return to the game', SCREEN_WIDTH/2,SCREEN_HEIGHT/2,
+                         arcade.color.BLACK, font_size=20, anchor_x='center')
+        arcade.draw_text('Press Enter to reset the game', SCREEN_WIDTH/2, SCREEN_HEIGHT/2-30,
+                         arcade.color.BLACK, font_size=20, anchor_x='center')
+        arcade.draw_text('Press Esc to return to the menu', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 70,
+                         arcade.color.BLACK, font_size=20, anchor_x='center')
+
+    def on_key_press(self, key, modifiers):
+        if key == arcade.key.R:
+            self.window.show_view(self.game_view)
+        elif key == arcade.key.ENTER:
+            game = GameView()
+            game.setup()
+            self.window.show_view(game)
+        elif key == arcade.key.ESCAPE:
+            menu = MenuView()
+            self.window.show_view(menu)
+
 class GameOverView(arcade.View):
 
     def __init__(self):
         super().__init__()
-        self.texture = arcade.load_texture(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\gameover.jpg")
-        arcade.set_viewport(0,SCREEN_WIDTH-1,0,SCREEN_HEIGHT-1)
-    def on_draw(self):
-        arcade.start_render()
-        self.texture.draw_sized(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,SCREEN_WIDTH,SCREEN_HEIGHT)
+    def on_show_view(self):
+        arcade.set_background_color(arcade.color.BLACK)
     def on_mouse_press(self, x, y, button, modifiers):
         game_view = GameView()
         game_view.setup()
         self.window.show_view(game_view)
+    def on_draw(self):
+        arcade.start_render()
+        arcade.draw_text('GAME OVER',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.WHITE,
+                         font_size=50, anchor_x='center')
+        arcade.draw_text('Click to start again', SCREEN_WIDTH/2,SCREEN_HEIGHT/2,
+                         arcade.color.WHITE, font_size=40, anchor_x='center')
+
+class WinView(arcade.View):
+
+    def __init__(self,gameview):
+        super().__init__()
+        self.game_view = gameview
+    def on_show_view(self):
+        arcade.set_background_color(arcade.color.BLACK)
+    def on_mouse_press(self, x, y, button, modifiers):
+        game_view = GameView()
+        game_view.setup()
+        self.window.show_view(game_view)
+    def on_draw(self):
+        arcade.start_render()
+        arcade.draw_text('You won!',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.WHITE,
+                         font_size=50, anchor_x='center')
+        arcade.draw_text(f'Your score: {self.game_view.score}', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
+                         arcade.color.WHITE, font_size=40, anchor_x='center')
+        arcade.draw_text('Click to start again', SCREEN_WIDTH/2,SCREEN_HEIGHT/2-50,
+                         arcade.color.WHITE, font_size=40, anchor_x='center')
+
+
+
 
 
 class GameView(arcade.View):
@@ -196,6 +209,7 @@ class GameView(arcade.View):
         self.frog_sprite=None
         self.lives = LIVES
         self.score = 0
+        self.flowers = 0
     def setup(self):
         self.window.set_mouse_visible(False)
         self.background = arcade.load_texture(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\tło.png")
@@ -217,6 +231,8 @@ class GameView(arcade.View):
         self.frog_sprite.center_x = 350
         self.frog_sprite.center_y = 50
         self.frog_list.append(self.frog_sprite)
+
+        self.lives_img = arcade.load_texture(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\frog.png")
 
         self.car_left_sprite = Carleft(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\autoszybkie.png",scale=0.3)
         self.car_left_sprite.center_x = 650
@@ -490,6 +506,9 @@ class GameView(arcade.View):
         score = f"Score: {self.score}"
         arcade.draw_text(score, 20,760, arcade.csscolor.WHITE, 22)
 
+        for live in range(self.lives):
+            arcade.draw_lrwh_rectangle_textured(20 + 50*live,2,40,40,self.lives_img)
+
 
     def on_update(self, delta_time):
         self.frog_list.update()
@@ -525,20 +544,24 @@ class GameView(arcade.View):
             self.frog_sprite.center_y = 50
             self.time = 100
 
-        flowers = 0
+
         for flower in self.flowers_list:
             if arcade.check_for_collision(self.frog_sprite,flower):
-                flowers +=1
-                self.score += self.time
+                self.flowers += 1
+                self.score += round(self.time,1)
                 flower.append_texture(arcade.load_texture(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lily.png"))
                 flower.set_texture(1)
                 arcade.play_sound(self.bell_sound)
                 self.frog_sprite.center_x = 350
                 self.frog_sprite.center_y = 50
-        if flowers == 4:
-            pass
+                self.time += 10
+        if self.flowers == 4:
+            arcade.play_sound(self.win_sound)
+            view = WinView()
+            self.window.show_view(view)
 
         if self.lives == 0:
+            arcade.play_sound(self.gameover_sound)
             view = GameOverView()
             self.window.show_view(view)
 
@@ -552,9 +575,9 @@ class GameView(arcade.View):
         elif key == arcade.key.RIGHT:
             self.frog_sprite.change_x = MOVEMENT_SPEED
 
-        #elif key == arcade.key.ESCAPE:
-        #    menu_view = MenuView()
-        #    self.window.show_view(menu_view)
+        elif key == arcade.key.ESCAPE:
+            paused_view = PauseView(self)
+            self.window.show_view(paused_view)
 
     def on_key_release(self, key, modifiers):
 
@@ -566,8 +589,7 @@ class GameView(arcade.View):
 
 def main():
     window = arcade.Window(SCREEN_WIDTH,SCREEN_HEIGHT,SCREEN_TITLE)
-    view = GameView()
-    view.setup()
+    view = MenuView()
     window.show_view(view)
     arcade.run()
 main()
