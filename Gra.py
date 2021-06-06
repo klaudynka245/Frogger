@@ -211,6 +211,7 @@ class GameView(arcade.View):
         self.flowers_list = arcade.SpriteList()
         self.logs_list = arcade.SpriteList()
 
+        self.time = 100
         self.score = 0
         self.frog_sprite = Frog(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\frog.png",scale=0.16)
         self.frog_sprite.center_x = 350
@@ -484,6 +485,8 @@ class GameView(arcade.View):
         self.logs_list.draw()
         self.flowers_list.draw()
         self.frog_list.draw()
+        time = f"Time: {self.time:.02f}"
+        arcade.draw_text(time, 570,760,arcade.color.WHITE,21)
         score = f"Score: {self.score}"
         arcade.draw_text(score, 20,760, arcade.csscolor.WHITE, 22)
 
@@ -493,6 +496,7 @@ class GameView(arcade.View):
         self.car_list.update()
         self.lilies_list.update()
         self.logs_list.update()
+        self.time -= delta_time
         if arcade.check_for_collision_with_list(self.frog_sprite,self.car_list):
             arcade.play_sound(self.crash_sound)
             self.frog_sprite.center_x = 350
@@ -513,23 +517,30 @@ class GameView(arcade.View):
                     self.frog_sprite.center_y = 50
                     self.frog_sprite.center_x = 350
 
-        if self.frog_sprite.center_x >= 700 or self.frog_sprite.center_x <= 0:
-            self.lives -=1
+
+
+        if self.time <= 0:
+            self.lives -= 1
             self.frog_sprite.center_x = 350
             self.frog_sprite.center_y = 50
+            self.time = 100
 
+        flowers = 0
         for flower in self.flowers_list:
             if arcade.check_for_collision(self.frog_sprite,flower):
+                flowers +=1
+                self.score += self.time
                 flower.append_texture(arcade.load_texture(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\lily.png"))
                 flower.set_texture(1)
                 arcade.play_sound(self.bell_sound)
                 self.frog_sprite.center_x = 350
                 self.frog_sprite.center_y = 50
+        if flowers == 4:
+            pass
 
         if self.lives == 0:
             view = GameOverView()
             self.window.show_view(view)
-
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
@@ -541,9 +552,9 @@ class GameView(arcade.View):
         elif key == arcade.key.RIGHT:
             self.frog_sprite.change_x = MOVEMENT_SPEED
 
-        elif key == arcade.key.ESCAPE:
-            menu_view = MenuView()
-            self.window.show_view(menu_view)
+        #elif key == arcade.key.ESCAPE:
+        #    menu_view = MenuView()
+        #    self.window.show_view(menu_view)
 
     def on_key_release(self, key, modifiers):
 
@@ -555,7 +566,8 @@ class GameView(arcade.View):
 
 def main():
     window = arcade.Window(SCREEN_WIDTH,SCREEN_HEIGHT,SCREEN_TITLE)
-    view = MenuView()
+    view = GameView()
+    view.setup()
     window.show_view(view)
     arcade.run()
 main()
