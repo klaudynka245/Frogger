@@ -99,7 +99,7 @@ class Torpedo(arcade.Sprite):
     def __init__(self,img,scale):
         super().__init__(img,scale=scale,hit_box_algorithm= "Detailed")
         self.size=0
-        self.speed = 0.1 + DIFFICULTY/1.1
+        self.speed = 0.1 + DIFFICULTY/2
     def follow(self,player):
         if self.center_y < player.center_y:
             self.center_y += min(self.speed, player.center_y - self.center_y)
@@ -127,8 +127,7 @@ class MenuView(arcade.View):
                          arcade.color.WHITE, font_size=20, anchor_x="center")
     def on_key_press(self, key, modifiers):
         if key == arcade.key.G:
-            view = GameView()
-            view.setup()
+            view = ChoiceView()
             self.window.show_view(view)
         elif key == arcade.key.I:
             view = InstructionView()
@@ -147,6 +146,28 @@ class InstructionView(arcade.View):
         if key == arcade.key.ESCAPE:
             menu_view = MenuView()
             self.window.show_view(menu_view)
+
+
+class ChoiceView(arcade.View):
+    def __init__(self):
+        super().__init__()
+    def on_show_view(self):
+        arcade.set_background_color(arcade.color.BLACK)
+    def on_draw(self):
+        arcade.start_render()
+        arcade.draw_text('Press E to choose the easy mode', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,arcade.color.WHITE,
+                         font_size=40,anchor_x='center')
+        arcade.draw_text('Press H to choose the hard mode', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2-50, arcade.color.WHITE,
+                         font_size=40, anchor_x='center')
+    def on_key_press(self, key, modifiers):
+        if key == arcade.key.E:
+            gameview = GameView()
+            gameview.setup()
+            self.window.show_view(gameview)
+        if key == arcade.key.H:
+            gameview = HardGameView()
+            gameview.setup()
+            self.window.show_view(gameview)
 
 class PauseView(arcade.View):
     def __init__(self,gameview):
@@ -176,6 +197,34 @@ class PauseView(arcade.View):
             menu = MenuView()
             self.window.show_view(menu)
 
+class HardPauseView(arcade.View):
+    def __init__(self,gameview):
+        super().__init__()
+        self.game_view = gameview
+    def on_show_view(self):
+        arcade.set_background_color(arcade.color.COOL_GREY)
+    def on_draw(self):
+        arcade.start_render()
+        arcade.draw_text('PAUSED',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.BLACK,
+                         font_size=50, anchor_x='center')
+        arcade.draw_text('Press r to return to the game', SCREEN_WIDTH/2,SCREEN_HEIGHT/2,
+                         arcade.color.BLACK, font_size=20, anchor_x='center')
+        arcade.draw_text('Press Enter to reset the game', SCREEN_WIDTH/2, SCREEN_HEIGHT/2-30,
+                         arcade.color.BLACK, font_size=20, anchor_x='center')
+        arcade.draw_text('Press Esc to return to the menu', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 70,
+                         arcade.color.BLACK, font_size=20, anchor_x='center')
+
+    def on_key_press(self, key, modifiers):
+        if key == arcade.key.R:
+            self.window.show_view(self.game_view)
+        elif key == arcade.key.ENTER:
+            game = HardGameView()
+            game.setup()
+            self.window.show_view(game)
+        elif key == arcade.key.ESCAPE:
+            menu = MenuView()
+            self.window.show_view(menu)
+
 class GameOverView(arcade.View):
 
     def __init__(self):
@@ -192,6 +241,24 @@ class GameOverView(arcade.View):
                          font_size=50, anchor_x='center')
         arcade.draw_text('Click to start again', SCREEN_WIDTH/2,SCREEN_HEIGHT/2,
                          arcade.color.WHITE, font_size=40, anchor_x='center')
+
+class HardGameOverView(arcade.View):
+
+    def __init__(self):
+        super().__init__()
+    def on_show_view(self):
+        arcade.set_background_color(arcade.color.BLACK)
+    def on_mouse_press(self, x, y, button, modifiers):
+        game_view = HardGameView()
+        game_view.setup()
+        self.window.show_view(game_view)
+    def on_draw(self):
+        arcade.start_render()
+        arcade.draw_text('GAME OVER',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.WHITE,
+                         font_size=50, anchor_x='center')
+        arcade.draw_text('Click to start again', SCREEN_WIDTH/2,SCREEN_HEIGHT/2,
+                         arcade.color.WHITE, font_size=40, anchor_x='center')
+
 
 class WinView(arcade.View):
 
@@ -213,7 +280,25 @@ class WinView(arcade.View):
         arcade.draw_text('Click to start again', SCREEN_WIDTH/2,SCREEN_HEIGHT/2-50,
                          arcade.color.WHITE, font_size=40, anchor_x='center')
 
+class HardWinView(arcade.View):
 
+    def __init__(self,gameview):
+        super().__init__()
+        self.game_view = gameview
+    def on_show_view(self):
+        arcade.set_background_color(arcade.color.BLACK)
+    def on_mouse_press(self, x, y, button, modifiers):
+        game_view = HardGameView()
+        game_view.setup()
+        self.window.show_view(game_view)
+    def on_draw(self):
+        arcade.start_render()
+        arcade.draw_text('You won!',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.WHITE,
+                         font_size=50, anchor_x='center')
+        arcade.draw_text(f'Your score: {self.game_view.score}', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
+                         arcade.color.WHITE, font_size=40, anchor_x='center')
+        arcade.draw_text('Click to start again', SCREEN_WIDTH/2,SCREEN_HEIGHT/2-50,
+                         arcade.color.WHITE, font_size=40, anchor_x='center')
 
 
 
@@ -900,11 +985,6 @@ class HardGameView(arcade.View):
         self.torpedo = Torpedo(r"C:\Users\Klaudia\Desktop\Gra\Gra_lista7\zdjeciadogry\torpeda.png",scale=0.1)
         self.torpedo.center_x = 200
         self.torpedo.center_y = -100
-
-
-
-
-
     def on_draw(self):
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
@@ -935,6 +1015,8 @@ class HardGameView(arcade.View):
             self.frog_sprite.center_x = 350
             self.frog_sprite.center_y = 50
             self.lives -=1
+            self.torpedo.center_x = 300
+            self.torpedo.center_y = -100
         for lily in self.lilies_list:
             if arcade.check_for_collision(self.frog_sprite,lily):
                 self.frog_sprite.center_x += lily.speed
@@ -943,12 +1025,12 @@ class HardGameView(arcade.View):
                 self.frog_sprite.center_x += log.speed
 
         if self.frog_sprite.center_y > 300:
-            if not arcade.check_for_collision_with_list(self.frog_sprite,self.lilies_list):
-                if not arcade.check_for_collision_with_list(self.frog_sprite,self.logs_list):
-                    arcade.play_sound(self.water_sound)
-                    self.lives -=1
-                    self.frog_sprite.center_y = 50
-                    self.frog_sprite.center_x = 350
+            if not arcade.check_for_collision_with_list(self.frog_sprite,self.lilies_list) and not arcade.check_for_collision_with_list(self.frog_sprite,self.logs_list):
+                arcade.play_sound(self.water_sound)
+                self.lives -=1
+                self.frog_sprite.center_y = 50
+                self.frog_sprite.center_x = 350
+                self.torpedo.center_y = -100
 
 
 
@@ -968,15 +1050,17 @@ class HardGameView(arcade.View):
                 arcade.play_sound(self.bell_sound)
                 self.frog_sprite.center_x = 350
                 self.frog_sprite.center_y = 50
+                self.torpedo.center_y = -100
+                self.torpedo.center_x = 200
                 self.time += 10
         if self.flowers == 4:
             arcade.play_sound(self.win_sound)
-            view = WinView(self)
+            view = HardWinView(self)
             self.window.show_view(view)
 
         if self.lives == 0:
             arcade.play_sound(self.gameover_sound)
-            view = GameOverView()
+            view = HardGameOverView()
             self.window.show_view(view)
 
         if arcade.check_for_collision(self.frog_sprite,self.torpedo):
@@ -997,7 +1081,7 @@ class HardGameView(arcade.View):
             self.frog_sprite.change_x = MOVEMENT_SPEED
 
         elif key == arcade.key.ESCAPE:
-            paused_view = PauseView(self)
+            paused_view = HardPauseView(self)
             self.window.show_view(paused_view)
 
     def on_key_release(self, key, modifiers):
