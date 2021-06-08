@@ -125,19 +125,21 @@ class MenuView(arcade.View):
     def __init__(self):
         super().__init__()
     def on_show(self):
-        arcade.set_background_color(arcade.color.BLACK)
+        arcade.set_background_color(arcade.color.DARK_GREEN)
     def on_draw(self):
         arcade.start_render()
         logo = arcade.load_texture(r".\zdjeciadogry\logo.png")
         arcade.draw_lrwh_rectangle_textured(-45,250,800,600,logo)
-        arcade.draw_text('Click g to start the game', SCREEN_WIDTH/2, SCREEN_HEIGHT/2,
+        arcade.draw_text('Press G to start the game', SCREEN_WIDTH/2, SCREEN_HEIGHT/2,
                          arcade.color.WHITE, font_size=20, anchor_x="center")
-        arcade.draw_text('Click i for the instruction', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 50,
+        arcade.draw_text('Press I for the instruction', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 50,
                          arcade.color.WHITE, font_size=20, anchor_x="center")
-        arcade.draw_text('Click l to see the leaderboard', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 100,
+        arcade.draw_text('Press L to see the leaderboard', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 100,
                          arcade.color.WHITE, font_size=20, anchor_x="center")
-        arcade.draw_text('Click esc to exit', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 150,
+        arcade.draw_text('Press A to read about the author', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 150,
                          arcade.color.WHITE, font_size=20, anchor_x="center")
+        arcade.draw_text("Press ESC to quit", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 200,
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.G:
@@ -149,12 +151,38 @@ class MenuView(arcade.View):
         elif key == arcade.key.L:
             view = LeaderboardView()
             self.window.show_view(view)
+        elif key == arcade.key.A:
+            view = AuthorView()
+            self.window.show_view(view)
+        elif key == arcade.key.ESCAPE:
+            self.window.close()
 
+class AuthorView(arcade.View):
+    def on_show_view(self):
+        arcade.set_background_color(arcade.color.DARK_GREEN)
+    def on_draw(self):
+        arcade.start_render()
+        arcade.draw_text("About the author", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 200,
+                         arcade.color.WHITE, font_size=40, anchor_x='center')
+        arcade.draw_text("Hi! My name's Klaudia,", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 100,
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
+        arcade.draw_text("I'm an Applied Mathematics student", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 50,
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
+        arcade.draw_text("The game you're about to play", SCREEN_WIDTH / 2,
+                         SCREEN_HEIGHT / 2, arcade.color.WHITE, font_size=20, anchor_x='center')
+        arcade.draw_text("was made for the programming course purposes.", SCREEN_WIDTH / 2,
+                         SCREEN_HEIGHT / 2 - 50, arcade.color.WHITE, font_size=20, anchor_x='center')
+        arcade.draw_text("I hope you'll enjoy it! :)", SCREEN_WIDTH / 2,
+                         SCREEN_HEIGHT / 2 - 100, arcade.color.WHITE, font_size=20, anchor_x='center')
+    def on_key_press(self, key, modifiers):
+        if key == arcade.key.ESCAPE:
+            view = MenuView()
+            self.window.show_view(view)
 
 
 class InstructionView(arcade.View):
     def on_show_view(self):
-        arcade.set_background_color(arcade.csscolor.DARK_GREEN)
+        arcade.set_background_color(arcade.color.DARK_GREEN)
         arcade.set_viewport(0,SCREEN_WIDTH-1,0,SCREEN_HEIGHT-1)
     def on_draw(self):
         arcade.start_render()
@@ -170,7 +198,7 @@ class ChoiceView(arcade.View):
     def __init__(self):
         super().__init__()
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.BLACK)
+        arcade.set_background_color(arcade.color.DARK_GREEN)
     def on_draw(self):
         arcade.start_render()
         arcade.draw_text('Press E to choose the easy mode', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,arcade.color.WHITE,
@@ -182,10 +210,13 @@ class ChoiceView(arcade.View):
             gameview = GameView()
             gameview.setup()
             self.window.show_view(gameview)
-        if key == arcade.key.H:
+        elif key == arcade.key.H:
             gameview = HardGameView()
             gameview.setup()
             self.window.show_view(gameview)
+        elif key == arcade.key.ESCAPE:
+            view = MenuView()
+            self.window.show_view(view)
 
 class PauseView(arcade.View):
     def __init__(self,gameview):
@@ -195,14 +226,14 @@ class PauseView(arcade.View):
         arcade.set_background_color(arcade.color.COOL_GREY)
     def on_draw(self):
         arcade.start_render()
-        arcade.draw_text('PAUSED',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.BLACK,
+        arcade.draw_text('PAUSED',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.DARK_GREEN,
                          font_size=50, anchor_x='center')
         arcade.draw_text('Press r to return to the game', SCREEN_WIDTH/2,SCREEN_HEIGHT/2,
-                         arcade.color.BLACK, font_size=20, anchor_x='center')
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
         arcade.draw_text('Press Enter to reset the game', SCREEN_WIDTH/2, SCREEN_HEIGHT/2-30,
-                         arcade.color.BLACK, font_size=20, anchor_x='center')
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
         arcade.draw_text('Press Esc to return to the menu', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 70,
-                         arcade.color.BLACK, font_size=20, anchor_x='center')
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.R:
@@ -259,6 +290,12 @@ class LeaderboardView(arcade.View):
                             font_size=25, anchor_x='center')
             i +=1
 
+        z = 0
+        for points in HardListOfPoints:
+            arcade.draw_text(f'{points}', 450, 600 - z * 50, arcade.color.WHITE,
+                             font_size=25, anchor_x='center')
+            z += 1
+
     def on_key_press(self, key, modifiers):
         if key == arcade.key.ESCAPE:
             menu = MenuView()
@@ -272,14 +309,14 @@ class HardPauseView(arcade.View):
         arcade.set_background_color(arcade.color.COOL_GREY)
     def on_draw(self):
         arcade.start_render()
-        arcade.draw_text('PAUSED',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.BLACK,
+        arcade.draw_text('PAUSED',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.DARK_GREEN,
                          font_size=50, anchor_x='center')
-        arcade.draw_text('Press r to return to the game', SCREEN_WIDTH/2,SCREEN_HEIGHT/2,
-                         arcade.color.BLACK, font_size=20, anchor_x='center')
+        arcade.draw_text('Press R to return to the game', SCREEN_WIDTH/2,SCREEN_HEIGHT/2,
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
         arcade.draw_text('Press Enter to reset the game', SCREEN_WIDTH/2, SCREEN_HEIGHT/2-30,
-                         arcade.color.BLACK, font_size=20, anchor_x='center')
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
         arcade.draw_text('Press Esc to return to the menu', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 70,
-                         arcade.color.BLACK, font_size=20, anchor_x='center')
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.R:
@@ -297,7 +334,7 @@ class GameOverView(arcade.View):
     def __init__(self):
         super().__init__()
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.BLACK)
+        arcade.set_background_color(arcade.color.DARK_GREEN)
     def on_mouse_press(self, x, y, button, modifiers):
         game_view = GameView()
         game_view.setup()
@@ -314,7 +351,7 @@ class HardGameOverView(arcade.View):
     def __init__(self):
         super().__init__()
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.BLACK)
+        arcade.set_background_color(arcade.color.DARK_GREEN)
     def on_mouse_press(self, x, y, button, modifiers):
         game_view = HardGameView()
         game_view.setup()
@@ -333,7 +370,7 @@ class WinView(arcade.View):
         super().__init__()
         self.game_view = gameview
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.BLACK)
+        arcade.set_background_color(arcade.color.DARK_GREEN)
     def on_mouse_press(self, x, y, button, modifiers):
         game_view = GameView()
         game_view.setup()
@@ -353,7 +390,7 @@ class HardWinView(arcade.View):
         super().__init__()
         self.game_view = gameview
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.BLACK)
+        arcade.set_background_color(arcade.color.DARK_GREEN)
     def on_mouse_press(self, x, y, button, modifiers):
         game_view = HardGameView()
         game_view.setup()
@@ -723,6 +760,7 @@ class GameView(arcade.View):
                 self.frog_sprite.center_y = 50
                 self.time += 10
         if self.flowers == 4:
+            self.score += self.lives * 100
             arcade.play_sound(self.win_sound)
             view = WinView(self)
             self.window.show_view(view)
@@ -732,7 +770,6 @@ class GameView(arcade.View):
                 ListOfPoints.sort(reverse=True)
                 Strlist = [str(point)+'\n' for point in ListOfPoints]
                 f.writelines(Strlist)
-            LeaderboardView.setup()
 
         if self.lives == 0:
             arcade.play_sound(self.gameover_sound)
@@ -1089,6 +1126,7 @@ class HardGameView(arcade.View):
                 self.torpedo.center_x = 200
                 self.time += 10
         if self.flowers == 4:
+            self.score += self.lives * 100
             arcade.play_sound(self.win_sound)
             view = HardWinView(self)
             self.window.show_view(view)
@@ -1097,7 +1135,6 @@ class HardGameView(arcade.View):
                 HardListOfPoints.sort(reverse=True)
                 HardStrlist = [str(point) + '\n' for point in HardListOfPoints]
                 f.writelines(HardStrlist)
-            LeaderboardView.setup()
 
         if self.lives == 0:
             arcade.play_sound(self.gameover_sound)
