@@ -169,10 +169,13 @@ class AuthorView(arcade.View):
                          arcade.color.WHITE, font_size=20, anchor_x='center')
         arcade.draw_text("The game you're about to play", SCREEN_WIDTH / 2,
                          SCREEN_HEIGHT / 2, arcade.color.WHITE, font_size=20, anchor_x='center')
-        arcade.draw_text("was made for the programming course purposes.", SCREEN_WIDTH / 2,
+        arcade.draw_text("was made for the programming course purposes and", SCREEN_WIDTH / 2,
                          SCREEN_HEIGHT / 2 - 50, arcade.color.WHITE, font_size=20, anchor_x='center')
-        arcade.draw_text("I hope you'll enjoy it! :)", SCREEN_WIDTH / 2,
+        arcade.draw_text("it's a copy of arcade game 'Frogger'.I hope you'll enjoy it! :)", SCREEN_WIDTH / 2,
                          SCREEN_HEIGHT / 2 - 100, arcade.color.WHITE, font_size=20, anchor_x='center')
+        arcade.draw_text("I hope you'll enjoy it! :)", SCREEN_WIDTH / 2,
+                         SCREEN_HEIGHT / 2 - 150, arcade.color.WHITE, font_size=20, anchor_x='center')
+
     def on_key_press(self, key, modifiers):
         if key == arcade.key.ESCAPE:
             view = MenuView()

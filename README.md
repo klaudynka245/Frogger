@@ -1,8 +1,22 @@
 # Frogger
 ## Author: Klaudia Janicka
 
-### Frogger is a 1981 arcade action game.   The object of the game is to direct frogs to their homes one by one by crossing a busy road and navigating a river full of hazards. I've chosen this game, because it's one of those I can remember from childhood and I have a lot of good memories from playing it.
-![Screen example](/zdjeciadogry/example.png)
+### Copy of famous arcade game Frogger with some modifications
+![Game screen example](/zdjeciadogry/example.png)
+
+
+## Game objective
+
+### The object of the game is to direct frogs to their homes one by one by crossing a busy road and navigating a river full of hazards. The frog is at home when the lily is blooming. You get points based on the time in which you manage to get the frog to its home.
+
+## Navigating
+
+### :arrow_up: - Move forward  :arrow_down:  - Move backwards  :arrow_right: - Move to the right  :arrow_left: - Move to the left
+
+## Why that game? 
+
+ ### I've chosen this game, because it's one of those I can remember from childhood and I have a lot of good memories from playing it.
+
 
 ### Technologies
 **Python 3.8.5**  
