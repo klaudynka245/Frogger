@@ -13,14 +13,12 @@ ListOfPoints = []
 with open("Leaderboard.txt", 'r') as f:
     for line in f.readlines():
         ListOfPoints.append(float(line))
-ListOfPoints = ListOfPoints[0:10]
 ListOfPoints.sort(reverse=True)
 
 HardListOfPoints = []
 with open("HardLeaderBoard.txt", 'r') as f:
     for line in f.readlines():
         HardListOfPoints.append(float(line))
-HardListOfPoints = HardListOfPoints[0:10]
 HardListOfPoints.sort(reverse=True)
 
 class Frog(arcade.Sprite):
@@ -734,6 +732,7 @@ class GameView(arcade.View):
                 ListOfPoints.sort(reverse=True)
                 Strlist = [str(point)+'\n' for point in ListOfPoints]
                 f.writelines(Strlist)
+            LeaderboardView.setup()
 
         if self.lives == 0:
             arcade.play_sound(self.gameover_sound)
@@ -1098,6 +1097,7 @@ class HardGameView(arcade.View):
                 HardListOfPoints.sort(reverse=True)
                 HardStrlist = [str(point) + '\n' for point in HardListOfPoints]
                 f.writelines(HardStrlist)
+            LeaderboardView.setup()
 
         if self.lives == 0:
             arcade.play_sound(self.gameover_sound)
