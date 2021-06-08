@@ -1,6 +1,5 @@
 import arcade
-import arcade.gui
-from arcade.gui import UIManager
+
 
 
 SCREEN_WIDTH = 700
