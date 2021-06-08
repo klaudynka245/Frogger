@@ -26,6 +26,6 @@
  ### I've chosen this game, because it's one of those I can remember from childhood and I have a lot of good memories from playing it.
 
 
-### Technologies
+## Technologies used
 **Python 3.8.5**  
 **Arcade library** - library for creating 2D video games
