@@ -11,11 +11,10 @@
 
 ## Navigating
 
-### :arrow_up: - Move forward   
-### :arrow_down: - Move backwards  
-### :arrow_right: - Move to the right    
-### :arrow_left: - Move to the left
-
+:arrow_up: - Move forward  
+:arrow_down: - Move backwards  
+:arrow_right: - Move to the right  
+:arrow_left: - Move to the left  
 **G** - Start the game and choose the level  
 **I** - Instruction  
 **L** - Leaderboard  
