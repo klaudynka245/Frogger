@@ -767,11 +767,12 @@ class GameView(arcade.View):
             view = WinView(self)
             self.window.show_view(view)
 
-            with open("Leaderboard.txt", 'w') as f:
-                ListOfPoints[-1] = round(self.score)
-                ListOfPoints.sort(reverse=True)
-                Strlist = [str(point)+'\n' for point in ListOfPoints]
-                f.writelines(Strlist)
+            if ListOfPoints[-1] < self.score:
+                with open("Leaderboard.txt", 'w') as f:
+                    ListOfPoints[-1] = round(self.score,1)
+                    ListOfPoints.sort(reverse=True)
+                    Strlist = [str(point)+'\n' for point in ListOfPoints]
+                    f.writelines(Strlist)
 
         if self.lives == 0:
             arcade.play_sound(self.gameover_sound)
@@ -1132,11 +1133,12 @@ class HardGameView(arcade.View):
             arcade.play_sound(self.win_sound)
             view = HardWinView(self)
             self.window.show_view(view)
-            with open("HardLeaderBoard.txt", 'w') as f:
-                HardListOfPoints[-1] = round(self.score)
-                HardListOfPoints.sort(reverse=True)
-                HardStrlist = [str(point) + '\n' for point in HardListOfPoints]
-                f.writelines(HardStrlist)
+            if HardListOfPoints[-1] < self.score:
+                with open("HardLeaderBoard.txt", 'w') as f:
+                    HardListOfPoints[-1] = round(self.score)
+                    HardListOfPoints.sort(reverse=True)
+                    HardStrlist = [str(point) + '\n' for point in HardListOfPoints]
+                    f.writelines(HardStrlist)
 
         if self.lives == 0:
             arcade.play_sound(self.gameover_sound)
