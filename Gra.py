@@ -13,7 +13,15 @@ ListOfPoints = []
 with open("Leaderboard.txt", 'r') as f:
     for line in f.readlines():
         ListOfPoints.append(float(line))
+ListOfPoints = ListOfPoints[0:10]
 ListOfPoints.sort(reverse=True)
+
+HardListOfPoints = []
+with open("HardLeaderBoard.txt", 'r') as f:
+    for line in f.readlines():
+        HardListOfPoints.append(float(line))
+HardListOfPoints = HardListOfPoints[0:10]
+HardListOfPoints.sort(reverse=True)
 
 class Frog(arcade.Sprite):
 
@@ -336,7 +344,7 @@ class WinView(arcade.View):
         arcade.start_render()
         arcade.draw_text('You won!',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.WHITE,
                          font_size=50, anchor_x='center')
-        arcade.draw_text(f'Your score: {self.game_view.score}', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
+        arcade.draw_text(f'Your score: {round(self.game_view.score,2)}', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
                          arcade.color.WHITE, font_size=40, anchor_x='center')
         arcade.draw_text('Click to start again', SCREEN_WIDTH/2,SCREEN_HEIGHT/2-50,
                          arcade.color.WHITE, font_size=40, anchor_x='center')
@@ -721,10 +729,18 @@ class GameView(arcade.View):
             view = WinView(self)
             self.window.show_view(view)
 
+            with open("Leaderboard.txt", 'w') as f:
+                ListOfPoints[-1] = round(self.score)
+                ListOfPoints.sort(reverse=True)
+                Strlist = [str(point)+'\n' for point in ListOfPoints]
+                f.writelines(Strlist)
+
         if self.lives == 0:
             arcade.play_sound(self.gameover_sound)
             view = GameOverView()
             self.window.show_view(view)
+
+
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
@@ -1077,6 +1093,11 @@ class HardGameView(arcade.View):
             arcade.play_sound(self.win_sound)
             view = HardWinView(self)
             self.window.show_view(view)
+            with open("HardLeaderBoard.txt", 'w') as f:
+                HardListOfPoints[-1] = round(self.score)
+                HardListOfPoints.sort(reverse=True)
+                HardStrlist = [str(point) + '\n' for point in HardListOfPoints]
+                f.writelines(HardStrlist)
 
         if self.lives == 0:
             arcade.play_sound(self.gameover_sound)
