@@ -25,6 +25,13 @@
 
  ### I've chosen this game, because it's one of those I can remember from childhood and I have a lot of good memories from playing it.
 
+### How to run this app?
+1. Clone the template project: 
+`git clone  https://github.com/klaudynka245/Gra_lista7.git`
+2. Install the project's development and runtime requirements:
+`pip install -r requirements.txt`
+3. Run the game:
+`python Gra.py` 
 
 ## Technologies used
 **Python 3.8.5**  
