@@ -124,7 +124,7 @@ class MenuView(arcade.View):
     def __init__(self):
         super().__init__()
     def on_show(self):
-        arcade.set_background_color(arcade.color.DARK_GREEN)
+        arcade.set_background_color(arcade.csscolor.DARK_GREEN)
     def on_draw(self):
         arcade.start_render()
         logo = arcade.load_texture(r".\zdjeciadogry\logo.png")
@@ -158,7 +158,7 @@ class MenuView(arcade.View):
 
 class AuthorView(arcade.View):
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.DARK_GREEN)
+        arcade.set_background_color(arcade.csscolor.DARK_GREEN)
     def on_draw(self):
         arcade.start_render()
         arcade.draw_text("About the author", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 200,
@@ -184,12 +184,65 @@ class AuthorView(arcade.View):
 
 class InstructionView(arcade.View):
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.DARK_GREEN)
+        arcade.set_background_color(arcade.csscolor.DARK_GREEN)
         arcade.set_viewport(0,SCREEN_WIDTH-1,0,SCREEN_HEIGHT-1)
     def on_draw(self):
         arcade.start_render()
-        arcade.draw_text("Instruction Screen", SCREEN_WIDTH/2, SCREEN_HEIGHT/2,
+        arcade.draw_text("Instruction Screen", 350, 725,
                          arcade.color.WHITE, font_size=50, anchor_x='center')
+        up_img = arcade.load_texture(r".\zdjeciadogry\up.png")
+        arcade.draw_lrwh_rectangle_textured(70,670,50,50,up_img)
+        arcade.draw_text("Move forward", 210, 680,
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
+        down_img = arcade.load_texture(r".\zdjeciadogry\down.png")
+        arcade.draw_lrwh_rectangle_textured(380, 670, 50, 50, down_img)
+        arcade.draw_text("Move backwards", 530, 680,
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
+        left_img = arcade.load_texture(r".\zdjeciadogry\left.png")
+        arcade.draw_lrwh_rectangle_textured(70, 610, 50, 50, left_img)
+        arcade.draw_text("Move left", 185, 620,
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
+        right_img = arcade.load_texture(r".\zdjeciadogry\right.png")
+        arcade.draw_lrwh_rectangle_textured(380, 610, 50, 50, right_img)
+        arcade.draw_text("Move right", 500, 620,
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
+        water_img = arcade.load_texture(r".\zdjeciadogry\water.png")
+        arcade.draw_lrwh_rectangle_textured(150, 530, 50, 60, water_img)
+        arcade.draw_text("You can't go into the water!", 380, 550,
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
+        car_img = arcade.load_texture(r".\zdjeciadogry\autoszybkie.png")
+        arcade.draw_lrwh_rectangle_textured(-10, 340, 400, 300, car_img)
+        arcade.draw_text("Beware of the cars!", 360, 480,
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
+        torpedo_img = arcade.load_texture(r".\zdjeciadogry\torpeda.png")
+        arcade.draw_lrwh_rectangle_textured(150, 380, 30, 80, torpedo_img)
+        arcade.draw_text("Torpedo will follow you!", 350, 410,
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
+        arcade.draw_text("(Hard mode)", 360, 380,
+                        arcade.color.WHITE, font_size=20, anchor_x='center')
+        lily_img = arcade.load_texture(r".\zdjeciadogry\lisc.png")
+        arcade.draw_lrwh_rectangle_textured(-70, 170, 300, 300, lily_img)
+        log_img = arcade.load_texture(r".\zdjeciadogry\kłoda2.png")
+        arcade.draw_lrwh_rectangle_textured(40, 310, 300, 100, log_img)
+        arcade.draw_text("Use them to go through the water", 440, 310,
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
+        home_img = arcade.load_texture(r".\zdjeciadogry\lils.png")
+        arcade.draw_lrwh_rectangle_textured(50, 180, 120, 120, home_img)
+        home2_img = arcade.load_texture(r".\zdjeciadogry\lily.png")
+        arcade.draw_lrwh_rectangle_textured(160, 180, 140, 120, home2_img)
+        arcade.draw_text("This is the frog's home", 400, 220,
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
+        arcade.draw_text("--->", 170, 225,
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
+        frog_img = arcade.load_texture(r".\zdjeciadogry\frog.png")
+        arcade.draw_lrwh_rectangle_textured(140, 100, 70, 80, frog_img)
+        arcade.draw_text("You are playing as this", 400, 140,
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
+        arcade.draw_text("cute little frog", 400, 110,
+                         arcade.color.WHITE, font_size=20, anchor_x='center')
+
+
+
     def on_key_press(self, key, modifiers):
         if key == arcade.key.ESCAPE:
             menu_view = MenuView()
@@ -200,7 +253,7 @@ class ChoiceView(arcade.View):
     def __init__(self):
         super().__init__()
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.DARK_GREEN)
+        arcade.set_background_color(arcade.csscolor.DARK_GREEN)
     def on_draw(self):
         arcade.start_render()
         arcade.draw_text('Press E to choose the easy mode', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,arcade.color.WHITE,
@@ -252,7 +305,7 @@ class LeaderboardView(arcade.View):
     def __init__(self):
         super().__init__()
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.DARK_GREEN)
+        arcade.set_background_color(arcade.csscolor.DARK_GREEN)
     def on_draw(self):
         arcade.start_render()
 
@@ -336,7 +389,7 @@ class GameOverView(arcade.View):
     def __init__(self):
         super().__init__()
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.DARK_GREEN)
+        arcade.set_background_color(arcade.csscolor.DARK_GREEN)
     def on_mouse_press(self, x, y, button, modifiers):
         game_view = GameView()
         game_view.setup()
@@ -353,7 +406,7 @@ class HardGameOverView(arcade.View):
     def __init__(self):
         super().__init__()
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.DARK_GREEN)
+        arcade.set_background_color(arcade.csscolor.DARK_GREEN)
     def on_mouse_press(self, x, y, button, modifiers):
         game_view = HardGameView()
         game_view.setup()
@@ -392,7 +445,7 @@ class HardWinView(arcade.View):
         super().__init__()
         self.game_view = gameview
     def on_show_view(self):
-        arcade.set_background_color(arcade.color.DARK_GREEN)
+        arcade.set_background_color(arcade.csscolor.DARK_GREEN)
     def on_mouse_press(self, x, y, button, modifiers):
         game_view = HardGameView()
         game_view.setup()
