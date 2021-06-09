@@ -21,8 +21,10 @@ with open("HardLeaderBoard.txt", 'r') as f:
 HardListOfPoints.sort(reverse=True)
 
 class Frog(arcade.Sprite):
+    """Class to represent a Frog sprite"""
 
     def update(self):
+        """Updates the position of sprite"""
         self.center_x += self.change_x
         self.center_y += self.change_y
 
@@ -37,11 +39,17 @@ class Frog(arcade.Sprite):
             self.top = SCREEN_HEIGHT - 1
 
 class Carleft(arcade.Sprite):
+    """Class to represent Car sprite"""
     def __init__(self,img,scale):
+        """Constructs all of the necessary attributes"""
         super().__init__(img,scale=scale,hit_box_algorithm= "Detailed")
         self.size=0
         self.speed = -(2 + DIFFICULTY)
     def update(self):
+        """
+        Updates the position of the Car
+        Changes the photo, when the Car bumps into the Screen
+        """
         super().update()
         if self.center_x < 0:
             self.center_x = 5
@@ -58,11 +66,17 @@ class Carleft(arcade.Sprite):
         self.center_x += self.speed
 
 class Carright(arcade.Sprite):
+    """Class to represent Car sprite"""
     def __init__(self,img,scale):
+        """Constructs all of the necessary attributes"""
         super().__init__(img,scale=scale,hit_box_algorithm= "Detailed")
         self.size=0
         self.speed = 2 + DIFFICULTY
     def update(self):
+        """
+        Updates the position of the Car
+        Changes the photo, when the Car bumps into the Screen
+        """
         super().update()
         if self.center_x > SCREEN_WIDTH:
             self.center_x = SCREEN_WIDTH
@@ -80,37 +94,48 @@ class Carright(arcade.Sprite):
         self.center_x += self.speed
 
 class Lily(arcade.Sprite):
+    """Class to represent the Lily sprite"""
     def __init__(self,img,scale):
+        """Constructs all of the necessary attributes"""
         super().__init__(img,scale=scale,hit_box_algorithm= "Detailed")
         self.size=0
         self.speed = 0.1 + DIFFICULTY
     def update(self):
+        """Updates the position of Lily"""
         super().update()
         if self.center_x > 720:
             self.center_x = -10
         self.center_x += self.speed
 
 class Log(arcade.Sprite):
+    """Class to represent the Log sprite"""
     def __init__(self,img,scale):
+        """Constructs all of the necessary attributes"""
         super().__init__(img,scale=scale,hit_box_algorithm= "Detailed")
         self.size=0
         self.speed = -(0.2 + DIFFICULTY)
     def update(self):
+        """Updates the position of the Log"""
         super().update()
         if self.center_x < -70:
             self.center_x = 770
         self.center_x += self.speed
 
 class Flower(arcade.Sprite):
+    """Class to represent the Flower sprite"""
     def __init__(self,img,scale):
+        """Constructs all of the necessary atributes for the Flower"""
         super().__init__(img,scale=scale)
 
 class Torpedo(arcade.Sprite):
+    """Class to represent the Torpedo sprite"""
     def __init__(self,img,scale):
+        """Constructs all of the necessary attributes"""
         super().__init__(img,scale=scale,hit_box_algorithm= "Detailed")
         self.size=0
         self.speed = 0.1 + DIFFICULTY/2
     def follow(self,player):
+        """Function which allows the sprite to follow the Player sprite"""
         if self.center_y < player.center_y:
             self.center_y += min(self.speed, player.center_y - self.center_y)
         elif self.center_y > player.center_y:
@@ -121,11 +146,15 @@ class Torpedo(arcade.Sprite):
             self.center_x -= min(self.speed, self.center_x - player.center_x)
 
 class MenuView(arcade.View):
+    """Class to represent Menu"""
     def __init__(self):
+        """Constructs all the necessary attributes"""
         super().__init__()
     def on_show(self):
+        """Function that sets the background"""
         arcade.set_background_color(arcade.csscolor.DARK_GREEN)
     def on_draw(self):
+        """Function that draws the elements on the screen"""
         arcade.start_render()
         logo = arcade.load_texture(r".\zdjeciadogry\logo.png")
         arcade.draw_lrwh_rectangle_textured(-45,250,800,600,logo)
@@ -141,6 +170,8 @@ class MenuView(arcade.View):
                          arcade.color.WHITE, font_size=20, anchor_x='center')
 
     def on_key_press(self, key, modifiers):
+        """Function that induces method when specific key is pressed
+        @param key: arcade.key - key that is pressed"""
         if key == arcade.key.G:
             view = ChoiceView()
             self.window.show_view(view)
@@ -158,8 +189,10 @@ class MenuView(arcade.View):
 
 class AuthorView(arcade.View):
     def on_show_view(self):
+        """Function that sets the background"""
         arcade.set_background_color(arcade.csscolor.DARK_GREEN)
     def on_draw(self):
+        """Function that draws the elements on the screen"""
         arcade.start_render()
         arcade.draw_text("About the author", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 200,
                          arcade.color.WHITE, font_size=40, anchor_x='center')
@@ -171,12 +204,14 @@ class AuthorView(arcade.View):
                          SCREEN_HEIGHT / 2, arcade.color.WHITE, font_size=20, anchor_x='center')
         arcade.draw_text("was made for the programming course purposes and", SCREEN_WIDTH / 2,
                          SCREEN_HEIGHT / 2 - 50, arcade.color.WHITE, font_size=20, anchor_x='center')
-        arcade.draw_text("it's a copy of arcade game 'Frogger'.I hope you'll enjoy it! :)", SCREEN_WIDTH / 2,
+        arcade.draw_text("it's a copy of arcade game 'Frogger'.", SCREEN_WIDTH / 2,
                          SCREEN_HEIGHT / 2 - 100, arcade.color.WHITE, font_size=20, anchor_x='center')
         arcade.draw_text("I hope you'll enjoy it! :)", SCREEN_WIDTH / 2,
                          SCREEN_HEIGHT / 2 - 150, arcade.color.WHITE, font_size=20, anchor_x='center')
 
     def on_key_press(self, key, modifiers):
+        """Function that induces method when specific key is pressed
+        @param key: arcade.key - key that is pressed"""
         if key == arcade.key.ESCAPE:
             view = MenuView()
             self.window.show_view(view)
@@ -184,9 +219,11 @@ class AuthorView(arcade.View):
 
 class InstructionView(arcade.View):
     def on_show_view(self):
+        """Function that sets the background"""
         arcade.set_background_color(arcade.csscolor.DARK_GREEN)
         arcade.set_viewport(0,SCREEN_WIDTH-1,0,SCREEN_HEIGHT-1)
     def on_draw(self):
+        """Function that draws the elements on the screen"""
         arcade.start_render()
         arcade.draw_text("Instruction Screen", 350, 725,
                          arcade.color.WHITE, font_size=50, anchor_x='center')
@@ -244,6 +281,8 @@ class InstructionView(arcade.View):
 
 
     def on_key_press(self, key, modifiers):
+        """Function that induces method when specific key is pressed
+                @param key: arcade.key - key that is pressed"""
         if key == arcade.key.ESCAPE:
             menu_view = MenuView()
             self.window.show_view(menu_view)
@@ -251,16 +290,23 @@ class InstructionView(arcade.View):
 
 class ChoiceView(arcade.View):
     def __init__(self):
+        """Constructs all the necessary attributes"""
         super().__init__()
     def on_show_view(self):
+        """Function that sets the background"""
         arcade.set_background_color(arcade.csscolor.DARK_GREEN)
     def on_draw(self):
+        """Function that draws the elements on the screen"""
         arcade.start_render()
-        arcade.draw_text('Press E to choose the easy mode', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,arcade.color.WHITE,
-                         font_size=40,anchor_x='center')
-        arcade.draw_text('Press H to choose the hard mode', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2-50, arcade.color.WHITE,
+        arcade.draw_text('Choose the difficulty', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2+150, arcade.color.WHITE,
                          font_size=40, anchor_x='center')
+        arcade.draw_text('Press E to choose the easy mode', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,arcade.color.WHITE,
+                         font_size=30,anchor_x='center')
+        arcade.draw_text('Press H to choose the hard mode', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2-100, arcade.color.WHITE,
+                         font_size=30, anchor_x='center')
     def on_key_press(self, key, modifiers):
+        """Function that induces method when specific key is pressed
+                @param key: arcade.key - key that is pressed"""
         if key == arcade.key.E:
             gameview = GameView()
             gameview.setup()
@@ -275,11 +321,17 @@ class ChoiceView(arcade.View):
 
 class PauseView(arcade.View):
     def __init__(self,gameview):
+        """
+        Constructs all the necessary attributes
+        @param gameview: arcade.View() - Game view which we are reporting to
+        """
         super().__init__()
         self.game_view = gameview
     def on_show_view(self):
+        """Function that sets the background"""
         arcade.set_background_color(arcade.color.COOL_GREY)
     def on_draw(self):
+        """Function that draws the elements on the screen"""
         arcade.start_render()
         arcade.draw_text('PAUSED',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.DARK_GREEN,
                          font_size=50, anchor_x='center')
@@ -291,6 +343,8 @@ class PauseView(arcade.View):
                          arcade.color.WHITE, font_size=20, anchor_x='center')
 
     def on_key_press(self, key, modifiers):
+        """Function that induces method when specific key is pressed
+                @param key: arcade.key - key that is pressed"""
         if key == arcade.key.R:
             self.window.show_view(self.game_view)
         elif key == arcade.key.ENTER:
@@ -303,10 +357,13 @@ class PauseView(arcade.View):
 
 class LeaderboardView(arcade.View):
     def __init__(self):
+        """Constructs all the necessary attributes"""
         super().__init__()
     def on_show_view(self):
+        """Function that sets the background"""
         arcade.set_background_color(arcade.csscolor.DARK_GREEN)
     def on_draw(self):
+        """Function that draws the elements on the screen"""
         arcade.start_render()
 
         arcade.draw_line(150,100,150,660,arcade.color.WHITE)
@@ -352,17 +409,22 @@ class LeaderboardView(arcade.View):
             z += 1
 
     def on_key_press(self, key, modifiers):
+        """Function that induces method when specific key is pressed
+                        @param key: arcade.key - key that is pressed"""
         if key == arcade.key.ESCAPE:
             menu = MenuView()
             self.window.show_view(menu)
 
 class HardPauseView(arcade.View):
     def __init__(self,gameview):
+        """Constructs all the necessary attributes"""
         super().__init__()
         self.game_view = gameview
     def on_show_view(self):
+        """Function that sets the background"""
         arcade.set_background_color(arcade.color.COOL_GREY)
     def on_draw(self):
+        """Function that draws the elements on the screen"""
         arcade.start_render()
         arcade.draw_text('PAUSED',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.DARK_GREEN,
                          font_size=50, anchor_x='center')
@@ -374,6 +436,8 @@ class HardPauseView(arcade.View):
                          arcade.color.WHITE, font_size=20, anchor_x='center')
 
     def on_key_press(self, key, modifiers):
+        """Function that induces method when specific key is pressed
+                        @param key: arcade.key - key that is pressed"""
         if key == arcade.key.R:
             self.window.show_view(self.game_view)
         elif key == arcade.key.ENTER:
@@ -387,14 +451,18 @@ class HardPauseView(arcade.View):
 class GameOverView(arcade.View):
 
     def __init__(self):
+        """Constructs all the necessary attributes"""
         super().__init__()
     def on_show_view(self):
+        """Function that sets the background"""
         arcade.set_background_color(arcade.csscolor.DARK_GREEN)
     def on_mouse_press(self, x, y, button, modifiers):
+        """Function that induces method when mouse button is pressed"""
         game_view = GameView()
         game_view.setup()
         self.window.show_view(game_view)
     def on_draw(self):
+        """Function that draws the elements on the screen"""
         arcade.start_render()
         arcade.draw_text('GAME OVER',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.WHITE,
                          font_size=50, anchor_x='center')
@@ -404,14 +472,18 @@ class GameOverView(arcade.View):
 class HardGameOverView(arcade.View):
 
     def __init__(self):
+        """Constructs all the necessary attributes"""
         super().__init__()
     def on_show_view(self):
+        """Function that sets the background"""
         arcade.set_background_color(arcade.csscolor.DARK_GREEN)
     def on_mouse_press(self, x, y, button, modifiers):
+        """Function that induces method when mouse button is pressed"""
         game_view = HardGameView()
         game_view.setup()
         self.window.show_view(game_view)
     def on_draw(self):
+        """Function that draws the elements on the screen"""
         arcade.start_render()
         arcade.draw_text('GAME OVER',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.WHITE,
                          font_size=50, anchor_x='center')
@@ -422,15 +494,20 @@ class HardGameOverView(arcade.View):
 class WinView(arcade.View):
 
     def __init__(self,gameview):
+        """Constructs all the necessary attributes
+        @param gameview: arcade.View() - Game view which we are reporting to"""
         super().__init__()
         self.game_view = gameview
     def on_show_view(self):
+        """Function that sets the background"""
         arcade.set_background_color(arcade.color.DARK_GREEN)
     def on_mouse_press(self, x, y, button, modifiers):
+        """Function that induces method when mouse button is pressed"""
         game_view = GameView()
         game_view.setup()
         self.window.show_view(game_view)
     def on_draw(self):
+        """Function that draws the elements on the screen"""
         arcade.start_render()
         arcade.draw_text('You won!',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.WHITE,
                          font_size=50, anchor_x='center')
@@ -442,15 +519,22 @@ class WinView(arcade.View):
 class HardWinView(arcade.View):
 
     def __init__(self,gameview):
+        """
+        Constructs all the necessary attributes
+        @param gameview: arcade.View() - Game view which we are reporting to
+        """
         super().__init__()
         self.game_view = gameview
     def on_show_view(self):
+        """Function that sets the background"""
         arcade.set_background_color(arcade.csscolor.DARK_GREEN)
     def on_mouse_press(self, x, y, button, modifiers):
+        """Function that induces method when mouse button is pressed"""
         game_view = HardGameView()
         game_view.setup()
         self.window.show_view(game_view)
     def on_draw(self):
+        """Function that draws the elements on the screen"""
         arcade.start_render()
         arcade.draw_text('You won!',SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50, arcade.color.WHITE,
                          font_size=50, anchor_x='center')
@@ -463,6 +547,7 @@ class HardWinView(arcade.View):
 
 class GameView(arcade.View):
     def __init__(self):
+        """Constructs all the necessary attributes"""
         super().__init__()
         self.background=None
         self.frog_list=None
@@ -471,6 +556,7 @@ class GameView(arcade.View):
         self.score = 0
         self.flowers = 0
     def setup(self):
+        """Sets up the game elements"""
         self.window.set_mouse_visible(False)
         self.background = arcade.load_texture(r".\zdjeciadogry\tło.png")
         self.crash_sound = arcade.load_sound(r".\dźwięki\PiskOpon.mp3")
@@ -753,6 +839,7 @@ class GameView(arcade.View):
 
 
     def on_draw(self):
+        """Function that draws the elements on the screen"""
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
         self.car_list.draw()
@@ -770,6 +857,7 @@ class GameView(arcade.View):
 
 
     def on_update(self, delta_time):
+        """Function that is responsible for game logic"""
         self.frog_list.update()
         self.car_list.update()
         self.lilies_list.update()
@@ -835,6 +923,8 @@ class GameView(arcade.View):
 
 
     def on_key_press(self, key, modifiers):
+        """Function that induces method when specific key is pressed
+                @param key: arcade.key - key that is pressed"""
         if key == arcade.key.UP:
             self.frog_sprite.change_y = MOVEMENT_SPEED
         elif key == arcade.key.DOWN:
@@ -849,7 +939,7 @@ class GameView(arcade.View):
             self.window.show_view(paused_view)
 
     def on_key_release(self, key, modifiers):
-
+        """Adds key release functionality"""
         if key == arcade.key.UP or key == arcade.key.DOWN:
             self.frog_sprite.change_y = 0
         elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
@@ -858,6 +948,7 @@ class GameView(arcade.View):
 
 class HardGameView(arcade.View):
     def __init__(self):
+        """Constructs all the necessary attributes"""
         super().__init__()
         self.background=None
         self.frog_list=None
@@ -866,6 +957,7 @@ class HardGameView(arcade.View):
         self.score = 0
         self.flowers = 0
     def setup(self):
+        """Sets up the game elements"""
         self.window.set_mouse_visible(False)
         self.background = arcade.load_texture(r".\zdjeciadogry\tło.png")
         self.crash_sound = arcade.load_sound(r".\dźwięki\PiskOpon.mp3")
@@ -1114,6 +1206,7 @@ class HardGameView(arcade.View):
         self.torpedo.center_x = 200
         self.torpedo.center_y = -100
     def on_draw(self):
+        """Function that draws the elements on the screen"""
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
         self.car_list.draw()
@@ -1132,6 +1225,7 @@ class HardGameView(arcade.View):
 
 
     def on_update(self, delta_time):
+        """Function that is responsible for game logic"""
         self.frog_list.update()
         self.car_list.update()
         self.lilies_list.update()
@@ -1206,6 +1300,8 @@ class HardGameView(arcade.View):
             self.torpedo.center_y = -100
 
     def on_key_press(self, key, modifiers):
+        """Function that induces method when specific key is pressed
+                @param key: arcade.key - key that is pressed"""
         if key == arcade.key.UP:
             self.frog_sprite.change_y = MOVEMENT_SPEED
         elif key == arcade.key.DOWN:
@@ -1220,7 +1316,7 @@ class HardGameView(arcade.View):
             self.window.show_view(paused_view)
 
     def on_key_release(self, key, modifiers):
-
+        """Adds key release functionality"""
         if key == arcade.key.UP or key == arcade.key.DOWN:
             self.frog_sprite.change_y = 0
         elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
@@ -1230,6 +1326,7 @@ class HardGameView(arcade.View):
 
 
 def main():
+    """Function that runs the game"""
     window = arcade.Window(SCREEN_WIDTH,SCREEN_HEIGHT,SCREEN_TITLE)
     view = MenuView()
     window.show_view(view)
