@@ -1,6 +1,6 @@
 arcade==2.5.7
 numpy==1.20.1
-Pillow==8.1.2
+Pillow==8.2.0
 pyglet==1.5.17
 scipy==1.6.2
 
