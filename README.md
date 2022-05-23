@@ -21,10 +21,6 @@
 **A** - Informations about the author  
 **ESC** - Quit the game
 
-## Why that game? 
-
- ### I've chosen this game, because it's one of those I can remember from childhood and I have a lot of good memories from playing it.
-
 ### How to run this app?
 1. Clone the template project: 
 `git clone  https://github.com/klaudynka245/Gra_lista7.git`
